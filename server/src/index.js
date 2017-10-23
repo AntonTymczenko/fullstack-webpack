@@ -1,7 +1,7 @@
 // dependencies:
 const express = require('express'),
   bodyParser = require('body-parser'),
-  // cors = require('cors'),
+  cors = require('cors'),
   morgan = require('morgan')
 
 // configuration:
@@ -20,7 +20,7 @@ const {User} = require('./models')
 // some stuff:
 app.use(morgan('combined'))
 app.use(bodyParser.json())
-// app.use(cors())
+app.use(cors())
 
 // routes:
 require('./routes')(app)

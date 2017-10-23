@@ -13,6 +13,7 @@
     v-model="password"
     placeholder="password">
   <br>
+  <div v-html="error" class="error"/>
   <button
     @click="register">
     Register
@@ -26,20 +27,28 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: null
     }
   },
   methods: {
     async register () {
-      const response = await AuthenticationService.register({
-        email: this.email,
-        password: this.password
-      })
-      console.log(response.data)
+      try {
+        const response = await AuthenticationService.register({
+          email: this.email,
+          password: this.password
+        })
+        this.error = null
+        console.log(response.data)
+      } catch (error) {
+        this.error = error.response.data.error
+      }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
+.error
+  color: red
 </style>
