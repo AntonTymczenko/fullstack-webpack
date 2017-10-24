@@ -1,6 +1,13 @@
 const {User} = require('../models'),
   _ = require('lodash')
 
+function setTokenHeaders (token) {
+  return {
+    'x-auth': token,
+    'Access-Control-Expose-Headers': 'x-auth'
+  }
+}
+
 module.exports = {
   register (req, res) {
     const body = _.pick(req.body, ['email', 'password']),
@@ -11,7 +18,7 @@ module.exports = {
         return user.generateAuthToken()
       })
       .then(token => {
-        res.header('x-auth', token).status(200).send(user)
+        res.set(setTokenHeaders(token)).status(200).send(user)
       })
       .catch(err => {
         let error
@@ -35,9 +42,9 @@ module.exports = {
     User.findByCredentials(email, password)
       .then(user => {
         return user.generateAuthToken()
-          .then(token => [
-            res.header('x-auth', token).status(200).send(user)
-          ])
+          .then(token => {
+            res.set(setTokenHeaders(token)).status(200).send(user)
+          })
       })
       .catch(err => {
         if (err.error) {

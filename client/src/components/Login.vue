@@ -49,7 +49,7 @@ export default {
           password: this.password
         })
         this.error = null
-        console.log(response.data)
+        console.log(response.headers["x-auth"])
       } catch (error) {
         this.error = error.response.data.error
       }
