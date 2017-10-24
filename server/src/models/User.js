@@ -11,12 +11,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     minLength: 1,
-    trim: true/*,
-    validate: {
-      isAsync: false,
-      validator: true, // JOI HERE !!!!!!!!!
-      message: '{VALUE} is not a valid email'
-    }*/
+    trim: true
   },
   password: {
     type: String,
@@ -39,18 +34,23 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.methods.toJSON = function () {
-  let user = this
-  let userObject = user.toObject()
+  const user = this,
+    userObject = user.toObject()
 
   return _.pick(userObject, ['email', '_id', 'name'])
 }
 UserSchema.methods.generateAuthToken = function () {
   let user = this
-  const access = 'auth'
-  let token = jwt.sign({
-    _id: user._id.toHexString(),
-    access
-  }, JWT_SECRET).toString()
+  const access = 'auth',
+    TWO_WEEKS = 60 * 60 * 24* 7 * 2
+  let token = jwt.sign(
+    {
+      _id: user._id.toHexString(),
+      access
+    },
+    JWT_SECRET,
+    { expiresIn: TWO_WEEKS }
+  ).toString()
 
   user.tokens.push({access, token})
   return user.save().then(() => token)
@@ -86,7 +86,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
   return User.findOne({email})
     .then((user) => {
       if (!user) {
-        return Promise.reject()
+        return Promise.reject({error: 'no such user'})
       }
 
       return new Promise((resolve, reject) => {
@@ -94,7 +94,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
           if (res) {
             resolve(user)
           } else {
-            reject()
+            reject({error: 'wrong password'})
           }
         })
       })
