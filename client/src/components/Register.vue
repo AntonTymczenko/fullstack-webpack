@@ -51,7 +51,8 @@ export default {
           password: this.password
         })
         this.error = null
-        console.log(response.data)
+        this.$store.dispatch('setToken', response.headers["x-auth"])
+        this.$store.dispatch('setUser', response.data)
       } catch (error) {
         this.error = error.response.data.error
       }

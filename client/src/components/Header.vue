@@ -9,7 +9,8 @@
     <v-btn flat dark>Browse</v-btn>
   </v-toolbar-items>
   <v-spacer></v-spacer>
-  <v-toolbar-items>
+  <v-toolbar-items
+    v-if="!$store.state.user">
     <v-btn flat dark
       @click="navigateTo({name: 'register'})"
     >Sign Up</v-btn>
