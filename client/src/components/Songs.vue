@@ -1,6 +1,11 @@
 <template>
 <panel title="Songs">
-
+  <div v-for="song in songs"
+    :key="_id">
+    {{ song.title}} -
+    {{ song.artist}} -
+    {{ song.album}}
+  </div>
 </panel>
 </template>
 
@@ -17,7 +22,7 @@ export default {
     }
   },
   async mounted () {
-    this.songs = await SongsService.index()
+    this.songs = (await SongsService.index()).data
   }
 }
 </script>
