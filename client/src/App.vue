@@ -1,14 +1,12 @@
 <template>
-  <div id="app">
-    <v-app>
-      <page-header/>
-      <main>
-        <v-container fluid>
-          <router-view/>
-        </v-container>
-      </main>
-    </v-app>
-  </div>
+<v-app id="app">
+  <page-header/>
+  <main>
+    <v-container fluid>
+      <router-view/>
+    </v-container>
+  </main>
+</v-app>
 </template>
 
 <script>
@@ -21,6 +19,9 @@ export default {
 }
 </script>
 
+<style lang="stylus">
+@require './main'
+</style>
 <style lang="sass">
 #app
   font-family: 'Avenir', Helvetica, Arial, sans-serif

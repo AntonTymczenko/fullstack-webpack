@@ -63,7 +63,7 @@
     >{{ error }}</div>
     <v-btn
       dark
-      class="cyan"
+      class="primary"
       @click="create"
     >Create Song</v-btn>
   </v-flex>

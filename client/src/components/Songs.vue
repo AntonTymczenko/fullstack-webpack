@@ -11,7 +11,7 @@
         absolute
         right
         bottom
-        class="cyan accent-3">
+        class="accent">
           <v-icon>
             add
           </v-icon>
@@ -33,7 +33,7 @@
           <router-link :to="{ name: 'song', params: {id: song._id} }">
           <v-btn
             dark
-            class="cyan"
+            class="primary"
             >View</v-btn>
           </router-link>
         </v-flex>

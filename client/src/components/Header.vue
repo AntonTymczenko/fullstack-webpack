@@ -1,5 +1,5 @@
 <template lang="html">
-<v-toolbar fixed class="cyan" dark>
+<v-toolbar fixed class="primary" dark>
   <v-toolbar-title class="mr-4">
     <router-link :to="{name: 'home'}">
       TabTracker

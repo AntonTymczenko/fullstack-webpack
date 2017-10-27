@@ -15,7 +15,7 @@
       <div v-html="error" class="error"></div>
       <v-btn
         dark
-        class="cyan"
+        class="primary"
         @click="login">
         Login
       </v-btn>
