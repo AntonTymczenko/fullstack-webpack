@@ -1,31 +1,34 @@
 <template>
-<panel title="Register">
-  <form
-    autocomplete="off">
-    <v-text-field
-      type="email"
-      label="Email"
-      v-model="email"
-    ></v-text-field>
-    <v-text-field
-      type="password"
-      label="Password"
-      v-model="password"
-      autocomplete="new-password"
-    ></v-text-field>
-    <div v-html="error" class="error"></div>
-    <v-btn
-      dark
-      class="cyan"
-      @click="register">
-      Register
-    </v-btn>
-  </form>
-</panel>
+<centered>
+  <panel title="Register">
+    <form
+      autocomplete="off">
+      <v-text-field
+        type="email"
+        label="Email"
+        v-model="email"
+      ></v-text-field>
+      <v-text-field
+        type="password"
+        label="Password"
+        v-model="password"
+        autocomplete="new-password"
+      ></v-text-field>
+      <div v-html="error" class="error"></div>
+      <v-btn
+        dark
+        class="cyan"
+        @click="register">
+        Register
+      </v-btn>
+    </form>
+  </panel>
+</centered>
 </template>
 
 <script>
 import Panel from '@/components/Panel'
+import Centered from '@/components/Centered'
 import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
@@ -36,7 +39,8 @@ export default {
     }
   },
   components:  {
-    Panel
+    Panel,
+    Centered
   },
   methods: {
     async register () {

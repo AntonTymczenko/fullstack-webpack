@@ -32,4 +32,8 @@ export default {
 .application--light a
   text-decoration: none
   color: inherit
+.tab-textfield textarea
+  font-family: monospace
+.danger
+  color: red
 </style>

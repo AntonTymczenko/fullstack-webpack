@@ -11,7 +11,7 @@ const SongSchema = new mongoose.Schema({
   lyrics: { type: String, trim: true },
   tab: { type: String },
   _creator: {
-    // required: true,
+    required: true,
     type: mongoose.Schema.Types.ObjectId
   }
 })

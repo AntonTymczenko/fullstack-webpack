@@ -1,29 +1,32 @@
 <template>
-<panel title="Login">
-  <form name="login-form">
-    <v-text-field
-      type="email"
-      label="Email"
-      v-model="email"
-    ></v-text-field>
-    <v-text-field
-      type="password"
-      label="Password"
-      v-model="password"
-    ></v-text-field>
-    <div v-html="error" class="error"></div>
-    <v-btn
-      dark
-      class="cyan"
-      @click="login">
-      Login
-    </v-btn>
-  </form>
-</panel>
+<centered>
+  <panel title="Login">
+    <form name="login-form">
+      <v-text-field
+        type="email"
+        label="Email"
+        v-model="email"
+      ></v-text-field>
+      <v-text-field
+        type="password"
+        label="Password"
+        v-model="password"
+      ></v-text-field>
+      <div v-html="error" class="error"></div>
+      <v-btn
+        dark
+        class="cyan"
+        @click="login">
+        Login
+      </v-btn>
+    </form>
+  </panel>
+</centered>
 </template>
 
 <script>
 import Panel from '@/components/Panel'
+import Centered from '@/components/Centered'
 import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
@@ -34,7 +37,8 @@ export default {
     }
   },
   components:  {
-    Panel
+    Panel,
+    Centered
   },
   methods: {
     async login () {
@@ -46,6 +50,9 @@ export default {
         this.error = null
         this.$store.dispatch('setToken', response.headers["x-auth"])
         this.$store.dispatch('setUser', response.data)
+        this.$router.push({
+          name: 'songs'
+        })
       } catch (error) {
         this.error = error.response.data.error
       }
