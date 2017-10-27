@@ -2,6 +2,10 @@ const {Song, User} = require('../models'),
   _ = require('lodash'),
   {ObjectID} = require('mongodb')
 
+function validID (id) {
+  return ObjectID.isValid(id)
+}
+
 module.exports = {
   async index (req, res) {
     try {
@@ -18,7 +22,7 @@ module.exports = {
       'title', 'artist', 'genre',
       'album', 'albumImage', 'youtubeId',
       'lyrics', 'tab', '_creator'])
-    if (!body._creator || !ObjectID.isValid(body._creator)) {
+    if (!body._creator || !validID(body._creator)) {
       return res.status(400).send({ error: 'Bad request' })
     }
     User.findOne({ _id: body._creator }, (err, user) => {
@@ -39,5 +43,23 @@ module.exports = {
           })
       }
     })
+  },
+  show (req, res) {
+    const id = req.params.id
+    if (!validID(id)) {
+      return res.status(400).send({ error: 'Bad request'})
+    }
+    Song.findOne({_id: id})
+      .then (song => {
+        if (!song) {
+          return res.status(404).send({error: 'Not found'})
+        }
+        res.status(200).send(song)
+      })
+      .catch (err => {
+        res.status(500).send({
+          error: 'Error has occured while trying to find this song'
+        })
+      })
   }
 }

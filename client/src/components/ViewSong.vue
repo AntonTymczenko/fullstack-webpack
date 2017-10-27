@@ -10,6 +10,10 @@ export default {
   components:  {
     Panel
   },
+  async mounted () {
+    const id = this.$store.state.route.params.id
+    const song = await SongsService.show(id)
+  },
   data () {
     return {
       song: {

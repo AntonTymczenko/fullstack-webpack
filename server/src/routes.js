@@ -18,4 +18,6 @@ module.exports = (app) => {
     Songs.index)
   app.post('/songs',
     Songs.create)
+  app.get('/songs/:id',
+    Songs.show)
 }
