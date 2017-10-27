@@ -57,11 +57,11 @@ export default {
   },
   data () {
     return {
-      songs: null
+      songs: []
     }
   },
   async mounted () {
-    this.songs = (await SongsService.index()).data
+    this.songs = await SongsService.index()
   }
 }
 </script>

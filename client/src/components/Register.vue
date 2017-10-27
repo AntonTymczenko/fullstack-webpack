@@ -14,7 +14,7 @@
         v-model="password"
         autocomplete="new-password"
       ></v-text-field>
-      <div v-html="error" class="error"></div>
+      <div v-html="error" class="danger"></div>
       <v-btn
         dark
         class="primary"

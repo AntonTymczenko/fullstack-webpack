@@ -5,6 +5,12 @@ const {Song, User} = require('../models'),
 function validID (id) {
   return ObjectID.isValid(id)
 }
+function pickSong (body) {
+  return _.pick(body, [
+      'title', 'artist', 'genre',
+      'album', 'albumImage', 'youtubeId',
+      'lyrics', 'tab', '_creator'])
+}
 
 module.exports = {
   async index (req, res) {
@@ -18,10 +24,7 @@ module.exports = {
     }
   },
   create (req, res) {
-    const body = _.pick(req.body, [
-      'title', 'artist', 'genre',
-      'album', 'albumImage', 'youtubeId',
-      'lyrics', 'tab', '_creator'])
+    const body = pickSong(req.body)
     if (!body._creator || !validID(body._creator)) {
       return res.status(400).send({ error: 'Bad request' })
     }
@@ -60,6 +63,25 @@ module.exports = {
         res.status(500).send({
           error: 'Error has occured while trying to find this song'
         })
+      })
+  },
+  update (req, res) {
+    const id = req.params.id
+    if (!validID(id)) {
+      return res.status(400).send({error: 'Bad request'})
+    }
+    const body = pickSong(req.body)
+    Song.findOneAndUpdate(
+      { _id: id },
+      {$set: body},
+      {new: true}
+    )
+      .then ( song => {
+        if (!song) { throw err }
+        res.status(200).send(song)
+      })
+      .catch ( err => {
+        res.status(500).send({error: 'Error while updating'})
       })
   }
 }

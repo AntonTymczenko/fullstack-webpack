@@ -35,6 +35,8 @@ export default {
   color: inherit
 .tab-textfield textarea
   font-family: monospace
+  overflow: auto
+  min-height: 300px
 .danger
   color: red
 </style>
