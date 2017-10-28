@@ -71,10 +71,11 @@ module.exports = {
       return res.status(400).send({error: 'Bad request'})
     }
     const body = pickSong(req.body)
-    Song.findOneAndUpdate(
-      { _id: id },
-      {$set: body},
-      {new: true}
+    Song.findByIdAndUpdate(
+      id,
+      body,
+      {new: true,
+      upsert: false}
     )
       .then ( song => {
         if (!song) { throw err }
