@@ -11,11 +11,18 @@ function pickSong (body) {
       'album', 'albumImage', 'youtubeId',
       'lyrics', 'tab', '_creator'])
 }
+const indexQueryFields = ['title', 'artist', 'genre', 'album']
 
 module.exports = {
   async index (req, res) {
     try {
-      const songs = await Song.find({})
+      const s = req.query.s
+      const songs = s ?
+        await Song.find({})
+          .or(indexQueryFields
+            .map( key => ({ [key]: new RegExp(s, 'i') }) )
+          )
+        : await Song.find({}).limit(10)
       res.status(200).send(songs)
     } catch (err) {
       res.status(400).send({
