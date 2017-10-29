@@ -1,5 +1,4 @@
 <template>
-<centered>
   <panel title="Songs">
     <router-link
       v-if="this.$store.state.user"
@@ -43,18 +42,11 @@
       </v-layout>
     </div>
   </panel>
-</centered>
 </template>
 
 <script>
 import SongsService from '@/services/SongsService'
-import Panel from '@/components/Panel'
-import Centered from '@/components/Centered'
 export default {
-  components:  {
-    Panel,
-    Centered
-  },
   data () {
     return {
       songs: []

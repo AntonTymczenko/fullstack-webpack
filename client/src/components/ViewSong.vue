@@ -48,11 +48,7 @@
 
 <script>
 import SongsService from '@/services/SongsService'
-import Panel from '@/components/Panel'
 export default {
-  components:  {
-    Panel
-  },
   async mounted () {
     const id = this.$store.state.route.params.id
     try {

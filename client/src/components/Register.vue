@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
-import Centered from '@/components/Centered'
 import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
@@ -37,10 +35,6 @@ export default {
       password: '',
       error: null
     }
-  },
-  components:  {
-    Panel,
-    Centered
   },
   methods: {
     async register () {
