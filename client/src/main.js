@@ -7,13 +7,14 @@ import Vuetify from 'vuetify'
 // import '../node_modules/vuetify/dist/vuetify.min.css'
 import { sync } from 'vuex-router-sync'
 import store from './store/store'
-import VueYouTubeEmbed from 'vue-youtube-embed'
 import Panel from '@/components/globals/Panel'
 import Centered from '@/components/globals/Centered'
 
+import VueYouTubeEmbed from 'vue-youtube-embed'
+Vue.use(VueYouTubeEmbed)
+
 Vue.config.productionTip = false
 Vue.use(Vuetify)
-Vue.use(VueYouTubeEmbed)
 
 Vue.component('panel', Panel)
 Vue.component('centered', Centered)

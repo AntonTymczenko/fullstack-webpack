@@ -5,7 +5,7 @@
       <router-link
         v-if="this.$store.state.user"
         slot="action"
-        :to="{name: 'edit-song'}">
+        :to="{ name: 'edit-song'}">
         <v-btn
           fab
           medium
@@ -36,7 +36,7 @@
   </v-flex>
   <v-flex sm8 class="ml-2">
     <panel title="YouTube Video">
-      <youtube :video-id="song.youtubeId" ></youtube>
+      <youtube :video-id="song.youtubeId"></youtube>
     </panel>
     <panel title="Tabs" class="mt-2">
       <div class="tab">{{song.tab}}</div>
@@ -48,6 +48,7 @@
 
 <script>
 import SongsService from '@/services/SongsService'
+
 export default {
   async mounted () {
     const id = this.$store.state.route.params.id

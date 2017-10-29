@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import SongsService from '@/services/SongsService'
 export default {
   data () {
@@ -16,7 +17,7 @@ export default {
     }
   },
   watch: {
-    search (value) {
+    search: _.debounce(function (value) {
       const route = {
         name: 'songs'
       }
@@ -26,7 +27,7 @@ export default {
         }
       }
       this.$router.push(route)
-    },
+    }, 700),
     '$route.query.s': {
       immediate: true,
       handler (value) {

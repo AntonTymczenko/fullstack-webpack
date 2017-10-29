@@ -44,9 +44,7 @@ export default {
         this.error = null
         this.$store.dispatch('setToken', response.headers["x-auth"])
         this.$store.dispatch('setUser', response.data)
-        this.$router.push({
-          name: 'songs'
-        })
+        this.$router.push({name: 'songs'})
       } catch (error) {
         this.error = error.response.data.error
       }

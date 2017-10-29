@@ -88,14 +88,6 @@ export default {
       error: null
     }
   },
-  async mounted () {
-    const id = this.$store.state.route.params.id
-    try {
-      this.song = await SongsService.show(id)
-    } catch (err) {
-      this.error = err.response.data.error
-    }
-  },
   methods: {
     save () {
       this.error = null
