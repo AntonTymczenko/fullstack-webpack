@@ -14,7 +14,27 @@ export default {
     return {
       search: ''
     }
-  }}
+  },
+  watch: {
+    search (value) {
+      const route = {
+        name: 'songs'
+      }
+      if (value !== '') {
+        route.query = {
+          s: value
+        }
+      }
+      this.$router.push(route)
+    },
+    '$route.query.s': {
+      immediate: true,
+      handler (value) {
+        this.search = value
+      }
+    }
+  }
+}
 </script>
 
 <style scoped lang="sass">

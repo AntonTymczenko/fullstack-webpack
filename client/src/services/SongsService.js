@@ -1,8 +1,10 @@
 import Api from '@/services/Api'
 
 export default {
-  async index () {
-    return (await Api().get('/songs')).data
+  async index (s) {
+    return (await Api().get('/songs', {
+      params: { s }
+    })).data
   },
   create (song) {
     return Api().post('/songs', song)
