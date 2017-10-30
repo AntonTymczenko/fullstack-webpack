@@ -91,5 +91,18 @@ module.exports = {
       .catch ( err => {
         res.status(500).send({error: 'Error while updating'})
       })
+  },
+  async getCreator (req, res) {
+    const id = req.params.id
+    if (!validID(id)){
+      return res.status(400).send({error: 'Bad request'})
+    }
+    try {
+      const song = await Song.findById(id)
+      const user = await User.findById(song._creator)
+      res.status(200).send(user)
+    } catch (err) {
+      res.status(404).send({error: 'Not found'})
+    }
   }
 }

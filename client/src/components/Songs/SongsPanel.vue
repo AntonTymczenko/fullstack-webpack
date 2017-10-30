@@ -35,6 +35,16 @@
             class="primary"
             >View</v-btn>
           </router-link>
+          <div
+            class="song-album">
+            submitted by
+            <router-link :to="{ name: 'user', params: {id: song._creator} }">
+              <span
+                v-if="song._creatorEmail">
+                {{song._creatorEmail}}
+              </span>
+            </router-link>
+          </div>
         </v-flex>
         <v-flex xs6>
           <img :src="song.albumImage" alt="" class="album-image">
@@ -46,6 +56,7 @@
 
 <script>
 import SongsService from '@/services/SongsService'
+import UsersService from '@/services/UsersService'
 export default {
   data () {
     return {
@@ -56,7 +67,11 @@ export default {
     '$route.query.s': {
       immediate: true,
       async handler (value) {
-        this.songs = await SongsService.index(value)
+        const fetchedSongs = await SongsService.index(value)
+        await Promise.all(fetchedSongs.map(async function(song) {
+          song._creatorEmail = (await UsersService.getUser(song._creator)).email
+        }))
+        this.songs = fetchedSongs
       }
     }
   }

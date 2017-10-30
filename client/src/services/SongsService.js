@@ -14,6 +14,5 @@ export default {
   },
   update (id, song) {
     return Api().post(`/songs/${id}`, song)
-  },
-
+  }
 }
