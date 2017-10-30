@@ -17,6 +17,9 @@ const app = express()
 // models:
 const {User} = require('./models')
 
+// seeding DB:
+require('./seed')
+
 // some stuff:
 app.use(morgan('combined'))
 app.use(bodyParser.json())

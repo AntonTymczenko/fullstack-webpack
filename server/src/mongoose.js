@@ -7,7 +7,12 @@ console.log(`MONGODB_URI: ${MONGODB_URI}`)
 mongoose.Promise = global.Promise
 mongoose.connect(
   process.env.NODE_ENV==='test'? MONGODB_URI_TEST : MONGODB_URI,
-  {useMongoClient: true}
+  {useMongoClient: true},
+  () => {
+    if (process.env.NODE_ENV === 'development') {
+      mongoose.connection.db.dropDatabase()
+    }
+  }
 )
 
 module.exports = {
