@@ -2,27 +2,32 @@
 <v-layout>
   <v-flex sm4>
     <panel title="Song Metadata">
-      <router-link
-        v-if="this.$store.state.user == this.song._creator"
-        slot="action"
-        :to="{ name: 'edit-song'}">
-        <v-btn
-          fab
-          medium
-          absolute
-          right
-          bottom
-          class="accent">
-            <v-icon>
-              edit
-            </v-icon>
+      <div
+        v-if="user"
+        slot="action">
+        <v-btn v-if="!bookmarked"
+          @click="bookmark"
+          fab medium absolute right bottom class="accent">
+            <v-icon> bookmark_border </v-icon>
         </v-btn>
-      </router-link>
+        <v-btn v-else
+          @click="unbookmark"
+          fab medium absolute right bottom class="accent">
+            <v-icon> bookmark </v-icon>
+        </v-btn>
+      </div>
       <v-layout>
         <v-flex xs6>
           <div class="song-title"> {{ song.title}} </div>
           <div class="song-artist"> {{ song.artist}} </div>
           <div class="song-album"> {{ song.genre}} </div>
+          <router-link
+            v-if="user && user._id == song._creator"
+            :to="{ name: 'edit-song'}">
+            <v-btn fab small dark class="accent">
+                <v-icon> edit </v-icon>
+            </v-btn>
+          </router-link>
         </v-flex>
         <v-flex xs6>
           <img :src="song.albumImage" alt="" class="album-image">
@@ -48,6 +53,7 @@
 
 <script>
 import SongsService from '@/services/SongsService'
+import {mapState} from 'vuex'
 
 export default {
   async mounted () {
@@ -61,10 +67,22 @@ export default {
   data () {
     return {
       song: {},
+      bookmarked: false,
       error: null
     }
   },
   methods: {
+    bookmark (){
+      this.bookmarked = !this.bookmarked
+    },
+    unbookmark (){
+      this.bookmarked = !this.bookmarked
+    }
+  },
+  computed: {
+    ...mapState([
+      'user'
+    ])
   }
 }
 </script>
