@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha ./src/**/*.test.js",
+    "seed": "export NODE_ENV=seed || SET \"NODE_ENV=seed\" && node ./src/seed/index.js",
     "test-watch": "nodemon --exec 'npm test'"
   },
   "author": "Anton Tymczenko",
@@ -28,6 +29,9 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "expect": "^21.2.1",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
   }
 }

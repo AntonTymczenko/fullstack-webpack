@@ -7,20 +7,14 @@ const express = require('express'),
 // configuration:
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
-  process.env.NODE_ENV = process.env.NODE_ENV === 'test' ? 'test' : 'development'
+  process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 }
 
 // modules:
 const {mongoose} = require('./mongoose')
+
+// middleware and some other stuff:
 const app = express()
-
-// models:
-const {User} = require('./models')
-
-// seeding DB:
-require('./seed')
-
-// some stuff:
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
@@ -31,3 +25,4 @@ require('./routes')(app)
 app.listen(process.env.PORT, () => {
   console.log(`Started on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`)
 })
+module.exports = {app}
