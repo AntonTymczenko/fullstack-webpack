@@ -13,6 +13,6 @@ export default {
     return (await Api().get(`/songs/${id}`)).data
   },
   update (id, song) {
-    return Api().post(`/songs/${id}`, song)
+    return Api().put(`/songs/${id}`, song)
   }
 }

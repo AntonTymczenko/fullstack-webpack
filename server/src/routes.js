@@ -25,6 +25,8 @@ module.exports = (app) => {
     Songs.create)
   app.get('/songs/:id',
     Songs.show)
-  app.post('/songs/:id',
+    // TODO: 
+    // should add policy before SONG UPDATE to check if song._creator == user._id
+  app.put('/songs/:id',
     Songs.update)
 }

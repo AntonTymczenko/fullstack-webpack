@@ -3,7 +3,7 @@
   <v-flex sm4>
     <panel title="Song Metadata">
       <router-link
-        v-if="this.$store.state.user"
+        v-if="this.$store.state.user == this.song._creator"
         slot="action"
         :to="{ name: 'edit-song'}">
         <v-btn
