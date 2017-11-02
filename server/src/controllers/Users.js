@@ -32,7 +32,7 @@ module.exports = {
     let result
     if (!user.bookmarks ) {
       result = false
-    } else if (user.bookmarks.songId === undefined || user.bookmarks.songId == false) {
+    } else if (user.bookmarks.indexOf(songId) === -1) {
       result = false
     } else {
       result = true
@@ -59,8 +59,7 @@ module.exports = {
       }
       const userSaved = await User.findByIdAndUpdate(userId, {bookmarks}, {'new': true})
       const newIndex = userSaved.bookmarks.indexOf(songId)
-      // const newBookmarked = newIndex !== -1
-      const newBookmarked = false
+      const newBookmarked = newIndex !== -1
       if (bookmarked !== newBookmarked) {
         res.status(200).send({ isBookmarked: newBookmarked})
       } else {
