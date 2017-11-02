@@ -2,17 +2,15 @@
 <v-layout>
   <v-flex sm4>
     <panel title="Song Metadata">
-      <div
+      <v-btn
         v-if="user"
-        slot="action">
-        <v-btn
-          :title="bookmarkTitle"
-          @click="toggleBookmark"
-          fab medium absolute right bottom class="accent">
-            <v-icon v-if="bookmarked == true"> bookmark </v-icon>
-            <v-icon v-else> bookmark_border </v-icon>
-        </v-btn>
-      </div>
+        slot="action"
+        :title="bookmarkTitle"
+        @click="toggleBookmark"
+        fab medium absolute right bottom class="accent">
+          <v-icon v-if="bookmarked"> bookmark </v-icon>
+          <v-icon v-else> bookmark_border </v-icon>
+      </v-btn>
       <v-layout>
         <v-flex xs6>
           <div class="song-title"> {{ song.title}} </div>
@@ -79,6 +77,7 @@ export default {
         this.bookmarked = (await UsersService.toggleBookmark(this.user._id, this.song._id)).isBookmarked
       } catch (err) {
         console.log(err)
+        this.error = err.response.data.error
       }
     }
   },
