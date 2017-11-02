@@ -60,7 +60,6 @@ export default {
         this.bookmarked = (await UsersService.isBookmarked(this.user._id, this.song._id)).isBookmarked
       }
     } catch (err) {
-      console.log(err)
       this.error = err.response.data.error
     }
   },
@@ -76,7 +75,6 @@ export default {
       try {
         this.bookmarked = (await UsersService.toggleBookmark(this.user._id, this.song._id)).isBookmarked
       } catch (err) {
-        console.log(err)
         this.error = err.response.data.error
       }
     }
