@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
       required: true
     }
   }],
+  bookmarks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Song'
+  }],
   name: {
     type: String
   }
@@ -37,7 +41,7 @@ UserSchema.methods.toJSON = function () {
   const user = this,
     userObject = user.toObject()
 
-  return _.pick(userObject, ['email', '_id', 'name'])
+  return _.pick(userObject, ['email', '_id', 'name', 'bookmarks'])
 }
 UserSchema.methods.generateAuthToken = function () {
   let user = this

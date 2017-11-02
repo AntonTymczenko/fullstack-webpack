@@ -25,8 +25,13 @@ module.exports = (app) => {
     Songs.create)
   app.get('/songs/:id',
     Songs.show)
-    // TODO: 
-    // should add policy before SONG UPDATE to check if song._creator == user._id
+    // TODO: should add policy before SONG UPDATE to check if song._creator == user._id
   app.put('/songs/:id',
     Songs.update)
+  // bookmarking
+  app.put('/users/:userId/toggleBookmark',
+    // TODO:  should add policy checking user's token
+    Users.toggleBookmark)
+  app.get('/users/:userId/isBookmarked',
+    Users.isBookmarked)
 }
