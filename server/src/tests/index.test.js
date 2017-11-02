@@ -1,3 +1,8 @@
+// this file has almost doesn't correspond
+// with current project
+// it's just a 'copy-paste' from another project.
+// I just meant to convert it later for needs of TabTracker
+
 const expect = require('expect')
 const request = require('supertest')
 

@@ -10,7 +10,9 @@ const userTwoId = new ObjectID()
 users[0]._id = userOneId
 users[1]._id = userTwoId
 songs[0]._creator = userOneId
-songs[1]._creator = userTwoId
+for (let i = 1; i<songs.length; i++) {
+  songs[i]._creator = userTwoId
+}
 
 mongoose.Promise = global.Promise
 require('dotenv').config()
@@ -65,7 +67,7 @@ mongoose.connect(
   })
   .then (() => {
     mongoose.connection.close(null, ()=> {
-      console.log('connection to DB closed')
+      console.log('Connection to DB closed. Seeding complete. OK')
     })
   })
   .catch(err => {

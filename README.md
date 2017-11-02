@@ -16,4 +16,4 @@ MONGODB_URI_TEST=mongodb://localhost:27017/tabtracker-test
 JWT_SECRET="supersecret"
 ```
 
-To run development mode you'll need MongoDB server running on your machine. First of all - `npm install`. Then execute `npm run seed`. After that `npm run dev`. And you're ready to go.
+To run in development mode you'll need MongoDB server running on your machine. First of all - `npm install`. Then execute `npm run seed`. After that `npm run dev`. And you're ready to go.
