@@ -2,7 +2,8 @@
 const {
     Authentication,
     Songs,
-    Users
+    Users,
+    Bookmarks
   } = require('./controllers')
 
 //policies:
@@ -31,7 +32,7 @@ module.exports = (app) => {
   // bookmarking
   app.put('/users/:userId/toggleBookmark',
     // TODO:  should add policy checking user's token
-    Users.toggleBookmark)
+    Bookmarks.toggleBookmark)
   app.get('/users/:userId/isBookmarked',
-    Users.isBookmarked)
+    Bookmarks.isBookmarked)
 }
