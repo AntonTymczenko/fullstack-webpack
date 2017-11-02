@@ -5,15 +5,12 @@
       <div
         v-if="user"
         slot="action">
-        <v-btn v-if="!bookmarked"
-          @click="bookmark"
+        <v-btn
+          :title="bookmarkTitle"
+          @click="toggleBookmark"
           fab medium absolute right bottom class="accent">
-            <v-icon> bookmark_border </v-icon>
-        </v-btn>
-        <v-btn v-else
-          @click="unbookmark"
-          fab medium absolute right bottom class="accent">
-            <v-icon> bookmark </v-icon>
+            <v-icon v-if="bookmarked == true"> bookmark </v-icon>
+            <v-icon v-else> bookmark_border </v-icon>
         </v-btn>
       </div>
       <v-layout>
@@ -24,7 +21,7 @@
           <router-link
             v-if="user && user._id == song._creator"
             :to="{ name: 'edit-song'}">
-            <v-btn fab small dark class="accent">
+            <v-btn fab small dark class="accent" title="Edit">
                 <v-icon> edit </v-icon>
             </v-btn>
           </router-link>
@@ -53,6 +50,7 @@
 
 <script>
 import SongsService from '@/services/SongsService'
+import UsersService from '@/services/UsersService'
 import {mapState} from 'vuex'
 
 export default {
@@ -60,7 +58,11 @@ export default {
     const id = this.$store.state.route.params.id
     try {
       this.song = await SongsService.show(id)
+      if (this.user && this.user._id && this.song && this.song._id) {
+        this.bookmarked = (await UsersService.isBookmarked(this.user._id, this.song._id)).isBookmarked
+      }
     } catch (err) {
+      console.log(err)
       this.error = err.response.data.error
     }
   },
@@ -72,17 +74,21 @@ export default {
     }
   },
   methods: {
-    bookmark (){
-      this.bookmarked = !this.bookmarked
-    },
-    unbookmark (){
-      this.bookmarked = !this.bookmarked
+    async toggleBookmark (){
+      try {
+        this.bookmarked = (await UsersService.toggleBookmark(this.user._id, this.song._id)).isBookmarked
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
   computed: {
     ...mapState([
       'user'
-    ])
+    ]),
+    bookmarkTitle () {
+      return `${this.bookmarked == true ? 'Unb' : 'B'}ookmark`
+    }
   }
 }
 </script>
