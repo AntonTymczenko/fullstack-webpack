@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const {MONGODB_URI, MONGODB_URI_TEST} = process.env
-console.log(`MONGODB_URI: ${MONGODB_URI}`)
 
 mongoose.Promise = global.Promise
 mongoose.connect(
